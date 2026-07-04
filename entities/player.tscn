@@ -115,9 +115,17 @@ animations = [{
 script = ExtResource("1_merdl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1870963330]
+visible = false
 shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"jump"
 autoplay = "idle"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1000609535]
+limit_left = 0
+limit_top = 0
+limit_right = 448
+limit_bottom = 200
+position_smoothing_enabled = true
