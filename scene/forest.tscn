@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dli1s46ne87p6" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/2 - Trees.png" id="7_qxlj4"]
 [ext_resource type="Texture2D" uid="uid://bbmiqrtug53vt" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/1 - Leaf_top.png" id="8_qxlj4"]
 [ext_resource type="TileSet" uid="uid://8xerb7h5ym5j" path="res://tiles/decoration.tres" id="11_gwku7"]
+[ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="12_64es3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("4_jxvlp")
@@ -55,11 +56,14 @@ texture = ExtResource("4_jxvlp")
 [sub_resource type="TileSet" id="TileSet_g4v7s"]
 sources/0 = SubResource("TileSetAtlasSource_gwku7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmspj"]
+size = Vector2(20, 88)
+
 [node name="Forest" type="Node2D" unique_id=434922768]
 metadata/_edit_vertical_guides_ = [724.0]
 
 [node name="Player" parent="." unique_id=592507838 instance=ExtResource("1_2xpkg")]
-position = Vector2(17, 166)
+position = Vector2(13, 180)
 
 [node name="camera" parent="." unique_id=1764486754 instance=ExtResource("2_jo4av")]
 limit_top = 0
@@ -73,6 +77,18 @@ tile_set = ExtResource("2_gbfvw")
 z_index = 2
 tile_map_data = PackedByteArray("AAAmAAkAAAADAAUAAAAmAAoAAAADAAUAAAAnAAoAAAAFAAUAAAAnAAkAAAAFAAUAAAA=")
 tile_set = SubResource("TileSet_g4v7s")
+
+[node name="Decoration" type="TileMapLayer" parent="." unique_id=2007585021]
+tile_map_data = PackedByteArray("AAAsAAsAAAADAAUAAAA=")
+tile_set = ExtResource("11_gwku7")
+
+[node name="LevelEnd" parent="." unique_id=1260541190 instance=ExtResource("12_64es3")]
+position = Vector2(743, 178)
+next_level = "tropic"
+
+[node name="CollisionShape2D" parent="LevelEnd" index="0" unique_id=2111398809]
+position = Vector2(-5, -30)
+shape = SubResource("RectangleShape2D_kmspj")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=998197578]
 
@@ -142,6 +158,4 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="Decoration" type="TileMapLayer" parent="." unique_id=2007585021]
-tile_map_data = PackedByteArray("AAAsAAsAAAADAAUAAAA=")
-tile_set = ExtResource("11_gwku7")
+[editable path="LevelEnd"]
