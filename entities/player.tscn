@@ -119,6 +119,7 @@ visible = false
 shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"jump"
 autoplay = "idle"
