@@ -12,7 +12,9 @@ enum PlayerState {
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-const SPEED = 80.0
+@export var max_speed = 100.0
+@export var accelleration = 100
+@export var decelleration = 200
 const JUMP_VELOCITY = -300.0
 
 
@@ -21,6 +23,14 @@ var jump_count = 0
 var direction = 0
 var status: PlayerState
 
+func move(delta):
+	update_direction()
+	
+	if direction:
+		velocity.x = move_toward(velocity.x, direction * max_speed, accelleration * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, decelleration * delta)
+		
 func _ready() -> void:
 	go_to_idle_state()
 	
@@ -30,22 +40,22 @@ func _physics_process(delta: float) -> void:
 
 	match status:
 		PlayerState.idle:
-			idle_satate()
+			idle_satate(delta)
 		PlayerState.walk:
-			walk_state()
+			walk_state(delta)
 		PlayerState.jump:
-			jump_state()
+			jump_state(delta)
 		PlayerState.duck:
-			duck_state()
+			duck_state(delta)
 		PlayerState.belly:
-			belly_state()
+			belly_state(delta)
 		PlayerState.fall:
-			fall_state()
+			fall_state(delta)
 	
 	move_and_slide()
 
-func idle_satate():
-	move()
+func idle_satate(delta):
+	move(delta)
 	if velocity.x != 0:
 		go_to_walk_state()
 		return
@@ -58,15 +68,15 @@ func idle_satate():
 		go_to_duck_state()
 		return	
 
-func duck_state():
-	move()
+func duck_state(delta):
+	move(delta)
 	if Input.is_action_just_released("down"):
 		exit_from_duck_state()
 		go_to_idle_state()
 		return
 		
-func walk_state():
-	move()
+func walk_state(delta):
+	move(delta)
 	if velocity.x == 0:
 		go_to_idle_state()
 		return
@@ -84,16 +94,16 @@ func walk_state():
 		go_to_fall_state()
 		return
 
-func belly_state():
-	move()
+func belly_state(delta):
+	move(delta)
 	if Input.is_action_just_released("down"):
 		if velocity.x != 0:
 			go_to_walk_state()
 		elif velocity.x == 0:
 			go_to_idle_state()
 	
-func jump_state():
-	move()
+func jump_state(delta):
+	move(delta)
 	
 	if Input.is_action_just_pressed("up") && can_jump():
 		go_to_jump_state()
@@ -103,8 +113,8 @@ func jump_state():
 		go_to_fall_state()
 		return
 
-func fall_state():
-	move()
+func fall_state(delta):
+	move(delta)
 	
 	if Input.is_action_just_pressed("up") && can_jump():
 		go_to_jump_state()
@@ -150,14 +160,6 @@ func go_to_jump_state():
 func go_to_fall_state():
 	status = PlayerState.fall
 	anim.play("fall")
-	
-func move():
-	update_direction()
-	
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 func update_direction():
 	direction = Input.get_axis("left", "right")

@@ -33,6 +33,8 @@ metadata/_edit_vertical_guides_ = [851.0]
 
 [node name="Player" parent="." unique_id=592507838 instance=ExtResource("1_bmxgx")]
 position = Vector2(13, 158)
+accelleration = 400
+decelleration = 400
 
 [node name="camera" parent="." unique_id=1764486754 instance=ExtResource("2_34ia6")]
 limit_right = 850
