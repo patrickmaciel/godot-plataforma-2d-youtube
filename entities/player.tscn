@@ -169,5 +169,5 @@ debug_color = Color(1.2995303e-06, 0.64726937, 0.2238779, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"fall"
+animation = &"belly"
 autoplay = "idle"
