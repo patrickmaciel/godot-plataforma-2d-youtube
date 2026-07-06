@@ -153,8 +153,9 @@ collision_mask = 9
 script = ExtResource("1_merdl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1870963330]
-visible = false
+z_index = 2
 shape = SubResource("CapsuleShape2D_g4v7s")
+debug_color = Color(1.2995303e-06, 0.64726937, 0.2238779, 0.41960785)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 z_index = 1

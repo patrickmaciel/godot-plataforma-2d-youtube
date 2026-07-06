@@ -7,11 +7,14 @@ enum PlayerState {
 	duck,
 	belly
 }
+
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 const SPEED = 80.0
 const JUMP_VELOCITY = -300.0
 
+var direction = 0
 var status: PlayerState
 
 func _ready() -> void:
@@ -52,6 +55,7 @@ func idle_satate():
 func duck_state():
 	move()
 	if Input.is_action_just_released("down"):
+		exit_from_duck_state()
 		go_to_idle_state()
 		return
 		
@@ -91,8 +95,16 @@ func go_to_idle_state():
 
 func go_to_duck_state():
 	status = PlayerState.duck
+	collision_shape_2d.shape.radius = 5
+	collision_shape_2d.shape.height = 10
+	collision_shape_2d.position.y = 3
 	anim.play("duck")
 
+func exit_from_duck_state():
+	collision_shape_2d.shape.radius = 8
+	collision_shape_2d.shape.height = 16
+	collision_shape_2d.position.y = 0
+	
 func go_to_walk_state():
 	status = PlayerState.walk
 	anim.play("walk")
@@ -107,13 +119,17 @@ func go_to_jump_state():
 	velocity.y = JUMP_VELOCITY
 
 func move():
-	var direction := Input.get_axis("left", "right")
+	update_direction()
+	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+func update_direction():
+	direction = Input.get_axis("left", "right")
+
 	if direction < 0:
 		anim.flip_h = true
 	elif direction > 0:
-		anim.flip_h = false
+		anim.flip_h = false	
