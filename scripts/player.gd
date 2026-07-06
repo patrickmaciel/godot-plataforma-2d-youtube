@@ -209,8 +209,10 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	# y grow when dropping , and are negative when up up up
 	if velocity.y > 0:
 		# enemie die!
-		area.get_parent().queue_free()
+		# that line need a refactor, because its not validate anything, just calling
+		area.get_parent().take_damage()
 		go_to_jump_state()
 	else:
+		# player die!
 		go_to_dead_state()
 	
