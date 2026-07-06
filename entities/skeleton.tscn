@@ -120,9 +120,8 @@ script = ExtResource("1_yag7t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2019500798]
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"dead"
-frame = 6
-frame_progress = 1.0
+animation = &"walk"
+autoplay = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1741392455]
 position = Vector2(0, 2)
@@ -134,3 +133,11 @@ shape = SubResource("CapsuleShape2D_g4v7s")
 position = Vector2(1.5, 4)
 shape = SubResource("RectangleShape2D_g4v7s")
 debug_color = Color(0.86306024, 0.00062723993, 0.8693969, 0.41960785)
+
+[node name="WallDetector" type="RayCast2D" parent="." unique_id=1842753851]
+position = Vector2(0, 12)
+target_position = Vector2(12, 0)
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=472369320]
+position = Vector2(12, 0)
+target_position = Vector2(0, 18)

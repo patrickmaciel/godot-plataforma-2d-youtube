@@ -11,16 +11,16 @@ config_version=5
 [application]
 
 config/name="Plataforma2D-Youtube"
-run/main_scene="uid://dsctddw8lge27"
+run/main_scene="uid://cq3i35o4vmt15"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=288
+window/size/viewport_width=400
 window/size/viewport_height=208
-window/size/window_width_override=1152
-window/size/window_height_override=832
+window/size/window_width_override=1200
+window/size/window_height_override=864
 window/stretch/mode="canvas_items"
 
 [global_group]
