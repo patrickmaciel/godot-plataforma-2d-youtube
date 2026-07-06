@@ -6,15 +6,16 @@ enum PlayerState {
 	jump,
 	duck,
 	belly,
-	fall
+	fall,
+	dead
 }
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-@export var max_speed = 180.0
-@export var accelleration = 400
-@export var decelleration = 200
+@export var max_speed = 120.0
+@export var accelleration = 250
+@export var decelleration = 80
 @export var slide_deceleration = 100
 const JUMP_VELOCITY = -300.0
 
@@ -44,9 +45,14 @@ func _physics_process(delta: float) -> void:
 			belly_state(delta)
 		PlayerState.fall:
 			fall_state(delta)
+		PlayerState.dead:
+			dead_state(delta)
 
 	move_and_slide()
 
+func dead_state(_delta):
+	pass
+	
 func idle_satate(delta):
 	move(delta)
 	if velocity.x != 0:
@@ -129,6 +135,11 @@ func fall_state(delta):
 	else:
 		go_to_walk_state()
 
+func go_to_dead_state():
+	velocity = Vector2.ZERO
+	status = PlayerState.dead
+	anim.play("dead")
+	
 func go_to_idle_state():
 	status = PlayerState.idle
 	anim.play("idle")
@@ -191,3 +202,15 @@ func set_large_collider():
 	collision_shape_2d.shape.radius = 8
 	collision_shape_2d.shape.height = 16
 	collision_shape_2d.position.y = 0
+
+
+# our hitbox are invaded by something OMG
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	# y grow when dropping , and are negative when up up up
+	if velocity.y > 0:
+		# enemie die!
+		area.get_parent().queue_free()
+		go_to_jump_state()
+	else:
+		go_to_dead_state()
+	
