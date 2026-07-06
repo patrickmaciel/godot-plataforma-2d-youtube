@@ -12,6 +12,7 @@ enum PlayerState {
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var reload_timer: Timer = $ReloadTimer
 
 @export var max_speed = 120.0
 @export var accelleration = 250
@@ -139,6 +140,7 @@ func go_to_dead_state():
 	velocity = Vector2.ZERO
 	status = PlayerState.dead
 	anim.play("dead")
+	reload_timer.start()
 	
 func go_to_idle_state():
 	status = PlayerState.idle
@@ -212,7 +214,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		# that line need a refactor, because its not validate anything, just calling
 		area.get_parent().take_damage()
 		go_to_jump_state()
-	else:
+	elif status != PlayerState.dead:
 		# player die!
 		go_to_dead_state()
-	
+
+func _on_reload_timer_timeout() -> void:
+	get_tree().reload_current_scene()

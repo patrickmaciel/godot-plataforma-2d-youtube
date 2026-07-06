@@ -13,6 +13,7 @@
 [ext_resource type="TileSet" uid="uid://8xerb7h5ym5j" path="res://tiles/decoration.tres" id="11_gwku7"]
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="12_64es3"]
 [ext_resource type="PackedScene" uid="uid://dffuuj8utkr5x" path="res://entities/skeleton.tscn" id="13_kmspj"]
+[ext_resource type="PackedScene" uid="uid://bnk6d6t5x8n7r" path="res://entities/spinning_bone.tscn" id="14_ja8kk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("4_jxvlp")
@@ -164,5 +165,14 @@ region_rect = Rect2(0, 0, 576, 208)
 
 [node name="Skeleton2" parent="." unique_id=1313881929 instance=ExtResource("13_kmspj")]
 position = Vector2(273, 139)
+
+[node name="Skeleton3" parent="." unique_id=867522649 instance=ExtResource("13_kmspj")]
+position = Vector2(577, 74)
+
+[node name="Skeleton4" parent="." unique_id=968014394 instance=ExtResource("13_kmspj")]
+position = Vector2(469, 140)
+
+[node name="SpinningBone" parent="." unique_id=656526329 instance=ExtResource("14_ja8kk")]
+position = Vector2(247, 141)
 
 [editable path="LevelEnd"]
