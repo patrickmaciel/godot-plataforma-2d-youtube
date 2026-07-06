@@ -14,6 +14,9 @@ enum PlayerState {
 const SPEED = 80.0
 const JUMP_VELOCITY = -300.0
 
+
+var jump_count = 0
+@export var jump_max_count = 2
 var direction = 0
 var status: PlayerState
 
@@ -83,7 +86,12 @@ func belly_state():
 	
 func jump_state():
 	move()
+	
+	if Input.is_action_just_pressed("up") && jump_count < jump_max_count:
+		go_to_jump_state()
+		
 	if is_on_floor():
+		jump_count = 0
 		if velocity.x == 0:
 			go_to_idle_state()	
 		else:
@@ -117,6 +125,7 @@ func go_to_jump_state():
 	status = PlayerState.jump
 	anim.play("jump")
 	velocity.y = JUMP_VELOCITY
+	jump_count += 1
 
 func move():
 	update_direction()
