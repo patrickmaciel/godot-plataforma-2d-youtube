@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d1fw00pmywxeo" path="res://sprites/1 - Penguin/Belly_Sliding (16 x 16).png" id="2_qsoyl"]
 [ext_resource type="Texture2D" uid="uid://bvg057puwhplv" path="res://sprites/1 - Penguin/Waddling (16 x 16).png" id="3_e4p34"]
 [ext_resource type="Texture2D" uid="uid://cjsmg7prwd0ik" path="res://sprites/1 - Penguin/Jump (16 x 16).png" id="3_rfe5m"]
+[ext_resource type="Texture2D" uid="uid://c6mpefcuyt04q" path="res://sprites/1 - Penguin/Falling (16 x 16).png" id="4_6nm46"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
 radius = 8.0
@@ -97,6 +98,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("4_6nm46")
+}],
+"loop": 0,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_e4p34")
 }, {
 "duration": 1.0,
@@ -160,5 +169,5 @@ debug_color = Color(1.2995303e-06, 0.64726937, 0.2238779, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"belly"
+animation = &"fall"
 autoplay = "idle"
