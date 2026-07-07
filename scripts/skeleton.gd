@@ -15,7 +15,7 @@ enum SkeletonState {
 	dead,
 }
 
-const SPEED = 30.0
+const SPEED = 7.0
 const JUMP_VELOCITY = -400.0
 
 var status: SkeletonState
@@ -54,7 +54,10 @@ func go_to_attack_state():
 	can_throw = true
 	
 func walk_state(_delta):
-	velocity.x = SPEED * direction
+	if anim.frame == 3 || anim.frame == 4:
+		velocity.x = SPEED * direction
+	else:
+		velocity.x = 0
 	
 	if wall_detector.is_colliding():
 		# menos com menos da mais

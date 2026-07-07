@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://brhjk5fpydpms" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/5 - Tree_row_BG_2.png" id="4_v5bin"]
 [ext_resource type="Texture2D" uid="uid://b0lm5s2ehfkic" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/4 - Tree_row_BG_1.png" id="5_e3l50"]
 [ext_resource type="Texture2D" uid="uid://1imb2ro7ko1r" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/3 - Bottom_leaf_piles.png" id="6_fk3cu"]
+[ext_resource type="TileSet" uid="uid://712tfkiadlup" path="res://tiles/lava.tres" id="6_ja8kk"]
 [ext_resource type="Texture2D" uid="uid://dli1s46ne87p6" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/2 - Trees.png" id="7_qxlj4"]
 [ext_resource type="Texture2D" uid="uid://bbmiqrtug53vt" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/1 - Leaf_top.png" id="8_qxlj4"]
 [ext_resource type="TileSet" uid="uid://8xerb7h5ym5j" path="res://tiles/decoration.tres" id="11_gwku7"]
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="12_64es3"]
 [ext_resource type="PackedScene" uid="uid://dffuuj8utkr5x" path="res://entities/skeleton.tscn" id="13_kmspj"]
-[ext_resource type="Texture2D" uid="uid://pib8u3wybgq0" path="res://sprites/Seasonal Tilesets/5 - Misc. universal tiles/Lava_frames (16 x 32).png" id="14_ja8kk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("4_jxvlp")
@@ -58,26 +58,6 @@ texture = ExtResource("4_jxvlp")
 [sub_resource type="TileSet" id="TileSet_g4v7s"]
 sources/0 = SubResource("TileSetAtlasSource_gwku7")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_boiax"]
-texture = ExtResource("14_ja8kk")
-0:0/animation_frame_0/duration = 0.1
-0:0/animation_frame_1/duration = 0.1
-0:0/animation_frame_2/duration = 0.1
-0:0/animation_frame_3/duration = 0.1
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
-0:1/animation_frame_0/duration = 0.1
-0:1/animation_frame_1/duration = 0.1
-0:1/animation_frame_2/duration = 0.1
-0:1/animation_frame_3/duration = 0.1
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSet" id="TileSet_57qmd"]
-physics_layer_0/collision_layer = 16
-physics_layer_0/collision_mask = 2
-sources/0 = SubResource("TileSetAtlasSource_boiax")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmspj"]
 size = Vector2(20, 88)
 
@@ -107,7 +87,7 @@ tile_set = ExtResource("11_gwku7")
 [node name="Lava" type="TileMapLayer" parent="." unique_id=1240185747 groups=["LethalArea"]]
 z_index = 2
 tile_map_data = PackedByteArray("AAAUAAoAAAAAAAAAAAAUAAsAAAAAAAEAAAAVAAoAAAAAAAAAAAAVAAsAAAAAAAEAAAAWAAoAAAAAAAAAAAAWAAsAAAAAAAEAAAAXAAoAAAAAAAAAAAAXAAsAAAAAAAEAAAAYAAoAAAAAAAAAAAAYAAsAAAAAAAEAAAAZAAoAAAAAAAAAAAAZAAsAAAAAAAEAAAATAAoAAAAAAAAAAAATAAsAAAAAAAEAAAA=")
-tile_set = SubResource("TileSet_57qmd")
+tile_set = ExtResource("6_ja8kk")
 
 [node name="LevelEnd" parent="." unique_id=1260541190 instance=ExtResource("12_64es3")]
 position = Vector2(743, 178)

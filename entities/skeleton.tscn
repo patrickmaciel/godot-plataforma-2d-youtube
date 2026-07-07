@@ -160,6 +160,7 @@ collision_layer = 4
 script = ExtResource("1_yag7t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2019500798]
+position = Vector2(0, 0.1)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"attack"
 autoplay = "walk"
