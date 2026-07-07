@@ -12,15 +12,18 @@ enum PlayerState {
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var hitbox_collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
+
 @onready var reload_timer: Timer = $ReloadTimer
 
 @export var max_speed = 120.0
 @export var accelleration = 250
 @export var decelleration = 80
 @export var slide_deceleration = 100
+
 const JUMP_VELOCITY = -300.0
 
-
+var dead = false
 var jump_count = 0
 @export var jump_max_count = 2
 var direction = 0
@@ -35,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 	match status:
 		PlayerState.idle:
-			idle_satate(delta)
+			idle_state(delta)
 		PlayerState.walk:
 			walk_state(delta)
 		PlayerState.jump:
@@ -54,7 +57,7 @@ func _physics_process(delta: float) -> void:
 func dead_state(_delta):
 	pass
 	
-func idle_satate(delta):
+func idle_state(delta):
 	move(delta)
 	if velocity.x != 0:
 		go_to_walk_state()
@@ -137,10 +140,14 @@ func fall_state(delta):
 		go_to_walk_state()
 
 func go_to_dead_state():
-	velocity = Vector2.ZERO
-	status = PlayerState.dead
-	anim.play("dead")
-	reload_timer.start()
+	if !dead:
+		dead = true
+		status = PlayerState.dead
+		anim.play("dead")
+		velocity.x = 0
+		# collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
+		# hitbox_collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
+		reload_timer.start()
 	
 func go_to_idle_state():
 	status = PlayerState.idle
@@ -199,24 +206,45 @@ func set_small_collider():
 	collision_shape_2d.shape.radius = 5
 	collision_shape_2d.shape.height = 10
 	collision_shape_2d.position.y = 3
+	
+	hitbox_collision_shape_2d.shape.size.y = 10
+	hitbox_collision_shape_2d.position.y = 3
 
 func set_large_collider():
 	collision_shape_2d.shape.radius = 8
 	collision_shape_2d.shape.height = 16
 	collision_shape_2d.position.y = 0
 
-
+	hitbox_collision_shape_2d.shape.size.y = 15
+	hitbox_collision_shape_2d.position.y = 0.5
+	
 # our hitbox are invaded by something OMG
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	# Skeleton.Hitbox is in area Enemies
+	# so area2D is a hitbox in the Enemies group
+		if area.is_in_group("Enemies"):
+			hit_enemy(area)
+		elif area.is_in_group("LethalArea"):
+			hit_lethal_area(area)
+
+func hit_enemy(area: Area2D):
 	# y grow when dropping , and are negative when up up up
 	if velocity.y > 0:
 		# enemie die!
 		# that line need a refactor, because its not validate anything, just calling
 		area.get_parent().take_damage()
 		go_to_jump_state()
-	elif status != PlayerState.dead:
-		# player die!
-		go_to_dead_state()
+		return
+	# elif status != PlayerState.dead:
+	else:
+		if status != PlayerState.dead:
+			# player die!
+			go_to_dead_state()
+			return
+
+func hit_lethal_area(_area: Area2D):
+	# its necessary to mark the Player.Hitbox.Collison.Mask = 5 (lethal_area)
+	go_to_dead_state()
 
 func _on_reload_timer_timeout() -> void:
 	get_tree().reload_current_scene()

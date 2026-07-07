@@ -185,12 +185,12 @@ debug_color = Color(1.2995303e-06, 0.64726937, 0.2238779, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"idle"
+animation = &"duck"
 autoplay = "idle"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1458698746]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=832739176]
 position = Vector2(0.5, 0.5)
