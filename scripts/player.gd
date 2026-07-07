@@ -140,14 +140,17 @@ func fall_state(delta):
 		go_to_walk_state()
 
 func go_to_dead_state():
-	if !dead:
-		dead = true
-		status = PlayerState.dead
-		anim.play("dead")
-		velocity.x = 0
-		# collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
-		# hitbox_collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
-		reload_timer.start()
+	if status == PlayerState.dead:
+		return
+		
+	#if !dead:
+		#dead = true
+	status = PlayerState.dead
+	anim.play("dead")
+	velocity.x = 0
+	# collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
+	# hitbox_collision_shape_2d.process_mode = Node.PROCESS_MODE_DISABLED
+	reload_timer.start()
 	
 func go_to_idle_state():
 	status = PlayerState.idle
@@ -222,11 +225,16 @@ func set_large_collider():
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	# Skeleton.Hitbox is in area Enemies
 	# so area2D is a hitbox in the Enemies group
-		if area.is_in_group("Enemies"):
-			hit_enemy(area)
-		elif area.is_in_group("LethalArea"):
-			hit_lethal_area(area)
+	if area.is_in_group("Enemies"):
+		hit_enemy(area)
+	elif area.is_in_group("LethalArea"):
+		hit_lethal_area(area)
 
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("LethalArea"):
+		go_to_dead_state()
+	
+	
 func hit_enemy(area: Area2D):
 	# y grow when dropping , and are negative when up up up
 	if velocity.y > 0:
@@ -237,10 +245,9 @@ func hit_enemy(area: Area2D):
 		return
 	# elif status != PlayerState.dead:
 	else:
-		if status != PlayerState.dead:
-			# player die!
-			go_to_dead_state()
-			return
+		# player die!
+		go_to_dead_state()
+		return
 
 func hit_lethal_area(_area: Area2D):
 	# its necessary to mark the Player.Hitbox.Collison.Mask = 5 (lethal_area)
