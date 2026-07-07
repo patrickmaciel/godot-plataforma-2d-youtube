@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="10_d18o5"]
 [ext_resource type="PackedScene" uid="uid://cbpxej312y5iy" path="res://entities/limit.tscn" id="12_ei81g"]
 [ext_resource type="Texture2D" uid="uid://7gs1hi2xgm3f" path="res://sprites/Seasonal Tilesets/5 - Misc. universal tiles/distant-water.png" id="13_xflqb"]
+[ext_resource type="PackedScene" uid="uid://cf6iwjdkj0blx" path="res://entities/moving_platform.tscn" id="15_xnncp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8vtq"]
 size = Vector2(20, 184)
@@ -154,5 +155,21 @@ region_rect = Rect2(0, 0, 576, 208)
 position = Vector2(-8, -28)
 shape = SubResource("RectangleShape2D_ei81g")
 
+[node name="MovingPlatform" parent="." unique_id=891112352 instance=ExtResource("15_xnncp")]
+position = Vector2(64, 136)
+time = 2
+
+[node name="Target" parent="MovingPlatform" index="1" unique_id=195171276]
+position = Vector2(0, -128)
+
+[node name="MovingPlatform2" parent="." unique_id=1624582864 instance=ExtResource("15_xnncp")]
+position = Vector2(368, 136)
+time = 2
+
+[node name="Target" parent="MovingPlatform2" index="1" unique_id=195171276]
+position = Vector2(232, 0)
+
 [editable path="LevelEnd"]
 [editable path="Limit"]
+[editable path="MovingPlatform"]
+[editable path="MovingPlatform2"]
