@@ -7,19 +7,25 @@ enum PlayerState {
 	duck,
 	belly,
 	fall,
-	dead
+	dead,
+	wall
 }
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hitbox_collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var left_wall_detector: RayCast2D = $LeftWallDetector
+@onready var right_wall_detector: RayCast2D = $RightWallDetector
+
 
 @onready var reload_timer: Timer = $ReloadTimer
 
 @export var max_speed = 120.0
 @export var accelleration = 250
-@export var decelleration = 80
+@export var decelleration = 400
 @export var slide_deceleration = 100
+@export var wall_acceleration = 40
+@export var wall_jump_velocity = 240
 
 const JUMP_VELOCITY = -300.0
 
@@ -33,8 +39,7 @@ func _ready() -> void:
 	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	
 
 	match status:
 		PlayerState.idle:
@@ -51,14 +56,46 @@ func _physics_process(delta: float) -> void:
 			fall_state(delta)
 		PlayerState.dead:
 			dead_state(delta)
+		PlayerState.wall:
+			wall_state(delta)
 
 	move_and_slide()
 
-func dead_state(_delta):
-	pass
+func wall_state(delta):
+	velocity.y += wall_acceleration * delta
+	
+	if left_wall_detector.is_colliding():
+		anim.flip_h = false # not flip
+		direction = 1 # left
+	elif right_wall_detector.is_colliding():
+		anim.flip_h = true # flip H
+		direction = -1 # right
+	else:
+		go_to_fall_state()
+		return
+	
+	if is_on_floor():
+		go_to_idle_state()
+		return
+	
+	if Input.is_action_just_pressed("up"):
+		velocity.x = wall_jump_velocity * direction
+		go_to_jump_state()
+		return
+
+func go_to_wall_state():
+	status = PlayerState.wall
+	anim.play("wall")
+	velocity = Vector2.ZERO
+	jump_count = 0
+
+func dead_state(delta):
+	apply_gravity(delta)
 	
 func idle_state(delta):
+	apply_gravity(delta)
 	move(delta)
+	
 	if velocity.x != 0:
 		go_to_walk_state()
 		return
@@ -71,14 +108,17 @@ func idle_state(delta):
 		go_to_duck_state()
 		return
 
-func duck_state(_delta):
+func duck_state(delta):
+	apply_gravity(delta)
 	update_direction()
+	
 	if Input.is_action_just_released("down"):
 		exit_from_duck_state()
 		go_to_idle_state()
 		return
 
 func walk_state(delta):
+	apply_gravity(delta)
 	move(delta)
 	
 	if velocity.x == 0:
@@ -99,6 +139,7 @@ func walk_state(delta):
 		return
 
 func belly_state(delta):
+	apply_gravity(delta)
 	# from what speed, and go until what speed, decrement
 	velocity.x = move_toward(velocity.x, 0, slide_deceleration * delta)
 	
@@ -115,6 +156,7 @@ func belly_state(delta):
 		return
 
 func jump_state(delta):
+	apply_gravity(delta)
 	move(delta)
 
 	if Input.is_action_just_pressed("up") && can_jump():
@@ -126,18 +168,25 @@ func jump_state(delta):
 		return
 
 func fall_state(delta):
+	apply_gravity(delta)
 	move(delta)
 
 	if Input.is_action_just_pressed("up") && can_jump():
 		go_to_jump_state()
 		return
 
+	if left_wall_detector.is_colliding() || right_wall_detector.is_colliding():
+		go_to_wall_state()
+		return
+
 	if is_on_floor():
 		jump_count = 0
 	if velocity.x == 0:
 		go_to_idle_state()
+		return
 	else:
 		go_to_walk_state()
+		return
 
 func go_to_dead_state():
 	if status == PlayerState.dead:
@@ -186,6 +235,10 @@ func go_to_fall_state():
 	status = PlayerState.fall
 	anim.play("fall")
 
+func apply_gravity(delta):
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+		
 func move(delta):
 	update_direction()
 
