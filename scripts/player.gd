@@ -30,6 +30,7 @@ enum PlayerState {
 @export var water_max_speed = 100
 @export var water_aceleration = 200
 @export var water_enter_speed = 150
+@export var water_drop_speed = -100
 
 const JUMP_VELOCITY = -300.0
 
@@ -77,13 +78,8 @@ func swim_state(delta):
 		#velocity.x = 0
 		velocity.x = move_toward(velocity.x, 0, water_aceleration * delta)
 	
-	var vertical_direction = Input.get_axis("up", "down")
-	if vertical_direction:
-		#velocity.y = water_max_speed * vertical_direction
-		velocity.y = move_toward(velocity.y, water_max_speed * vertical_direction, water_aceleration * delta)
-	else:
-		#velocity.y = 0
-		velocity.y = move_toward(velocity.y, 0, water_aceleration * delta)
+	# swim_vertically_simplified(delta)
+	swim_vertical_with_gravity(delta)
 
 func go_to_swim_state():
 	status = PlayerState.swim
@@ -345,3 +341,19 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Water"):
 		jump_count = 0
 		go_to_jump_state()
+
+func swim_vertically_simplified(delta):
+	var vertical_direction = Input.get_axis("up", "down")
+	if vertical_direction:
+		#velocity.y = water_max_speed * vertical_direction
+		velocity.y = move_toward(velocity.y, water_max_speed * vertical_direction, water_aceleration * delta)
+	else:
+		#velocity.y = 0
+		velocity.y = move_toward(velocity.y, 0, water_aceleration * delta)
+
+func swim_vertical_with_gravity(delta):
+	velocity.y += water_aceleration * delta
+	# guard to prevent high velocity
+	velocity.y = min(velocity.y, water_max_speed)
+	if Input.is_action_just_pressed("up"):
+		velocity.y = water_drop_speed
