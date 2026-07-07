@@ -8,7 +8,8 @@ enum PlayerState {
 	belly,
 	fall,
 	dead,
-	wall
+	wall,
+	swim
 }
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -58,9 +59,18 @@ func _physics_process(delta: float) -> void:
 			dead_state(delta)
 		PlayerState.wall:
 			wall_state(delta)
+		PlayerState.swim:
+			swim_state(delta)
 
 	move_and_slide()
 
+func swim_state(delta):
+	move(delta)
+
+func go_to_swim_state():
+	status = PlayerState.swim
+	anim.play("swimming")
+	
 func wall_state(delta):
 	velocity.y += wall_acceleration * delta
 	
@@ -286,6 +296,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("LethalArea"):
 		go_to_dead_state()
+		
+	if body.is_in_group("Water"):
+		go_to_swim_state()
 	
 	
 func hit_enemy(area: Area2D):

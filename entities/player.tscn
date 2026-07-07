@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cjsmg7prwd0ik" path="res://sprites/1 - Penguin/Jump (16 x 16).png" id="3_rfe5m"]
 [ext_resource type="Texture2D" uid="uid://c6mpefcuyt04q" path="res://sprites/1 - Penguin/Falling (16 x 16).png" id="4_6nm46"]
 [ext_resource type="Texture2D" uid="uid://cp0is5u72j584" path="res://sprites/1 - Penguin/Lying_On_Ground (16 x 16).png" id="4_tjdhl"]
+[ext_resource type="Texture2D" uid="uid://n83i5srkpfvl" path="res://sprites/1 - Penguin/Swimming (16 x 16).png" id="9_x08pd"]
 [ext_resource type="Texture2D" uid="uid://bv6vdku8ow345" path="res://sprites/1 - Penguin/Wall_Slide (16x16).png" id="10_tjdhl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
@@ -50,6 +51,22 @@ region = Rect2(64, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0i8f"]
 atlas = ExtResource("3_rfe5m")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cicqb"]
+atlas = ExtResource("9_x08pd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj0ki"]
+atlas = ExtResource("9_x08pd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fruft"]
+atlas = ExtResource("9_x08pd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slxql"]
+atlas = ExtResource("9_x08pd")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i623q"]
 atlas = ExtResource("3_e4p34")
@@ -164,6 +181,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_cicqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj0ki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fruft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slxql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fruft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj0ki")
+}],
+"loop": 1,
+"name": &"swimming",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_i623q")
 }, {
 "duration": 1.0,
@@ -219,12 +259,13 @@ debug_color = Color(1.2995303e-06, 0.64726937, 0.2238779, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1675454957]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"idle"
+animation = &"swimming"
 autoplay = "idle"
+frame_progress = 0.49688372
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1458698746]
 collision_layer = 2
-collision_mask = 20
+collision_mask = 52
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=832739176]
 position = Vector2(0.5, 0.5)
