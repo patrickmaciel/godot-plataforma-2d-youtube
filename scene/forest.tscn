@@ -14,6 +14,7 @@
 [ext_resource type="TileSet" uid="uid://8xerb7h5ym5j" path="res://tiles/decoration.tres" id="11_gwku7"]
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="12_64es3"]
 [ext_resource type="PackedScene" uid="uid://dffuuj8utkr5x" path="res://entities/skeleton.tscn" id="13_kmspj"]
+[ext_resource type="PackedScene" uid="uid://cbpxej312y5iy" path="res://entities/limit.tscn" id="15_boiax"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("4_jxvlp")
@@ -59,7 +60,7 @@ texture = ExtResource("4_jxvlp")
 sources/0 = SubResource("TileSetAtlasSource_gwku7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmspj"]
-size = Vector2(20, 88)
+size = Vector2(20, 200)
 
 [node name="Forest" type="Node2D" unique_id=434922768]
 metadata/_edit_vertical_guides_ = [724.0]
@@ -95,7 +96,7 @@ position = Vector2(743, 178)
 next_level = "tropic"
 
 [node name="CollisionShape2D" parent="LevelEnd" index="0" unique_id=2111398809]
-position = Vector2(-5, -30)
+position = Vector2(-5, -86)
 shape = SubResource("RectangleShape2D_kmspj")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=998197578]
@@ -174,5 +175,7 @@ position = Vector2(577, 74)
 
 [node name="Skeleton4" parent="." unique_id=968014394 instance=ExtResource("13_kmspj")]
 position = Vector2(469, 140)
+
+[node name="Limit" parent="." unique_id=513594558 instance=ExtResource("15_boiax")]
 
 [editable path="LevelEnd"]

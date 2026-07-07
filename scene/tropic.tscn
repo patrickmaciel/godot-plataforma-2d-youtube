@@ -11,9 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://y88yntvroqr5" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/2 - Waters_version_2.png" id="7_7xb8y"]
 [ext_resource type="Texture2D" uid="uid://2o6e6pgoflx0" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/1 - Waters_version_1.png" id="8_34ia6"]
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="10_d18o5"]
+[ext_resource type="PackedScene" uid="uid://cbpxej312y5iy" path="res://entities/limit.tscn" id="12_ei81g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8vtq"]
-size = Vector2(20, 106.5)
+size = Vector2(20, 184)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
@@ -55,7 +56,7 @@ position = Vector2(119, 152)
 next_level = "forest"
 
 [node name="CollisionShape2D" parent="LevelEnd" index="0" unique_id=2111398809]
-position = Vector2(745, -29.25)
+position = Vector2(745, -68)
 shape = SubResource("RectangleShape2D_t8vtq")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1366155028]
@@ -121,5 +122,7 @@ texture = ExtResource("8_34ia6")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
+
+[node name="Limit" parent="." unique_id=513594558 instance=ExtResource("12_ei81g")]
 
 [editable path="LevelEnd"]
