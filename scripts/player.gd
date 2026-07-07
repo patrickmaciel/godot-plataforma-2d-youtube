@@ -27,6 +27,9 @@ enum PlayerState {
 @export var slide_deceleration = 100
 @export var wall_acceleration = 40
 @export var wall_jump_velocity = 240
+@export var water_max_speed = 100
+@export var water_aceleration = 200
+@export var water_enter_speed = 150
 
 const JUMP_VELOCITY = -300.0
 
@@ -65,11 +68,27 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func swim_state(delta):
-	move(delta)
+	update_direction()
+	
+	if direction:
+		#velocity.x = water_max_speed * direction
+		velocity.x = move_toward(velocity.x, water_max_speed * direction, water_aceleration * delta)
+	else:
+		#velocity.x = 0
+		velocity.x = move_toward(velocity.x, 0, water_aceleration * delta)
+	
+	var vertical_direction = Input.get_axis("up", "down")
+	if vertical_direction:
+		#velocity.y = water_max_speed * vertical_direction
+		velocity.y = move_toward(velocity.y, water_max_speed * vertical_direction, water_aceleration * delta)
+	else:
+		#velocity.y = 0
+		velocity.y = move_toward(velocity.y, 0, water_aceleration * delta)
 
 func go_to_swim_state():
 	status = PlayerState.swim
 	anim.play("swimming")
+	velocity.y = min(velocity.y, water_enter_speed)
 	
 func wall_state(delta):
 	velocity.y += wall_acceleration * delta
@@ -321,3 +340,8 @@ func hit_lethal_area(_area: Area2D):
 
 func _on_reload_timer_timeout() -> void:
 	get_tree().reload_current_scene()
+
+func _on_hitbox_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Water"):
+		jump_count = 0
+		go_to_jump_state()

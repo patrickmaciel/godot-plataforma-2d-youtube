@@ -261,7 +261,7 @@ z_index = 1
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"swimming"
 autoplay = "idle"
-frame_progress = 0.49688372
+frame_progress = 0.86974406
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1458698746]
 collision_layer = 2
@@ -285,4 +285,5 @@ target_position = Vector2(8, 0)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
