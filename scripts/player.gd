@@ -121,14 +121,14 @@ func idle_state(delta):
 	apply_gravity(delta)
 	move(delta)
 	
-	if velocity.x != 0:
-		go_to_walk_state()
-		return
-
 	if Input.is_action_just_pressed("up"):
 		go_to_jump_state()
 		return
 
+	if velocity.x != 0:
+		go_to_walk_state()
+		return
+		
 	if Input.is_action_just_pressed("down"):
 		go_to_duck_state()
 		return
