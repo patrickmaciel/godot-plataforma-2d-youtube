@@ -65,9 +65,10 @@ size = Vector2(20, 88)
 metadata/_edit_vertical_guides_ = [724.0]
 
 [node name="Player" parent="." unique_id=592507838 instance=ExtResource("1_2xpkg")]
-position = Vector2(157, 179)
+position = Vector2(16, 184)
 
 [node name="camera" parent="." unique_id=1764486754 instance=ExtResource("2_jo4av")]
+position = Vector2(16, 184)
 limit_top = 0
 limit_right = 724
 

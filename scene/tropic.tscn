@@ -33,12 +33,13 @@ animations = [{
 metadata/_edit_vertical_guides_ = [851.0]
 
 [node name="Player" parent="." unique_id=592507838 instance=ExtResource("1_bmxgx")]
-position = Vector2(13, 158)
+position = Vector2(16, 168)
 
 [node name="Skeleton" parent="." unique_id=1216145598 instance=ExtResource("2_t8vtq")]
 position = Vector2(121, 160)
 
 [node name="camera" parent="." unique_id=1764486754 instance=ExtResource("2_34ia6")]
+position = Vector2(16, 168)
 limit_right = 850
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=1922692662]
