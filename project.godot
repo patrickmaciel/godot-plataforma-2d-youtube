@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Plataforma2D-Youtube"
-run/main_scene="uid://dsctddw8lge27"
+run/main_scene="uid://cq3i35o4vmt15"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 

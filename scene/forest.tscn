@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bcv850oh3fye5" path="res://entities/level_end.tscn" id="12_64es3"]
 [ext_resource type="PackedScene" uid="uid://dffuuj8utkr5x" path="res://entities/skeleton.tscn" id="13_kmspj"]
 [ext_resource type="PackedScene" uid="uid://cbpxej312y5iy" path="res://entities/limit.tscn" id="15_boiax"]
+[ext_resource type="PackedScene" uid="uid://cujwgwwnpaepi" path="res://entities/broken_block.tscn" id="16_0xhum"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("4_jxvlp")
@@ -177,5 +178,35 @@ position = Vector2(577, 74)
 position = Vector2(469, 140)
 
 [node name="Limit" parent="." unique_id=513594558 instance=ExtResource("15_boiax")]
+
+[node name="BrokenBlock" parent="." unique_id=1207047157 instance=ExtResource("16_0xhum")]
+position = Vector2(48, 160)
+
+[node name="BrokenBlock2" parent="." unique_id=1895359539 instance=ExtResource("16_0xhum")]
+position = Vector2(72, 128)
+
+[node name="BrokenBlock3" parent="." unique_id=223396403 instance=ExtResource("16_0xhum")]
+position = Vector2(96, 96)
+
+[node name="BrokenBlock4" parent="." unique_id=273556164 instance=ExtResource("16_0xhum")]
+position = Vector2(128, 64)
+
+[node name="BrokenBlock5" parent="." unique_id=2042004670 instance=ExtResource("16_0xhum")]
+position = Vector2(152, 64)
+
+[node name="BrokenBlock6" parent="." unique_id=1311201571 instance=ExtResource("16_0xhum")]
+position = Vector2(176, 64)
+
+[node name="BrokenBlock7" parent="." unique_id=254936241 instance=ExtResource("16_0xhum")]
+position = Vector2(200, 64)
+
+[node name="BrokenBlock8" parent="." unique_id=997881005 instance=ExtResource("16_0xhum")]
+position = Vector2(360, 136)
+
+[node name="BrokenBlock9" parent="." unique_id=1605189465 instance=ExtResource("16_0xhum")]
+position = Vector2(408, 112)
+
+[node name="BrokenBlock10" parent="." unique_id=1161974225 instance=ExtResource("16_0xhum")]
+position = Vector2(472, 96)
 
 [editable path="LevelEnd"]
